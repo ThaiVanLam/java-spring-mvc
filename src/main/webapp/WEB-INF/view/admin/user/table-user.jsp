@@ -25,7 +25,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
       <div class="row">
         <div class="col-12 mx-auto">
           <div class="d-flex justify-content-between">
-            <h2>Table users</h2>
+            <h3>Table users</h3>
             <a href="/admin/user/create" class="btn btn-primary"
               >Create a user</a
             >
@@ -47,7 +47,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
                   <td>${user.email}</td>
                   <td>${user.fullName}</td>
                   <td>
-                    <button type="button" class="btn btn-success">View</button>
+                    <a href="/admin/user/${user.id}" class="btn btn-success">View</a>
                     <button type="button" class="btn btn-warning">
                       Update
                     </button>
