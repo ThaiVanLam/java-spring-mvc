@@ -28,16 +28,15 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
           <form:form
             method="post"
             action="/admin/user/update"
-            modelAttribute="user"
+            modelAttribute="newUser"
           >
-            <div class="mb-3">
+            <div class="mb-3" style="display: none">
               <label for="exampleInputEmail1" class="form-label">Id:</label>
               <form:input
                 type="text"
                 class="form-control"
                 id="exampleInputEmail1"
                 path="id"
-                value="${id}"
               />
             </div>
             <div class="mb-3">
