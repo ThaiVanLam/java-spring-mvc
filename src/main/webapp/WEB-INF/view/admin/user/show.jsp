@@ -32,7 +32,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
       <jsp:include page="../layout/sidebar.jsp" />
       <div id="layoutSidenav_content">
 
-        <div class="mt-5 mx-4">
+        <div class="mx-4">
           <div class="row">
             <div class="col-12 mx-auto">
               <div class="mb-5">

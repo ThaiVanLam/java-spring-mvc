@@ -32,7 +32,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
       <jsp:include page="../layout/sidebar.jsp" />
       <div id="layoutSidenav_content">
         <div class="mx-4">
-          <h2 class="mt-4">Manage Users</h2>
+          <h2>Manage Users</h2>
           <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
             <li class="breadcrumb-item active">Users</li>
