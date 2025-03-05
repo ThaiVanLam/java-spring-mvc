@@ -38,28 +38,25 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
             <li class="breadcrumb-item active">Users</li>
           </ol>
         </div>
-        <div class="mt-5 mx-4">
-          <h2>Delete the user with id = ${id}</h2>
-          <hr />
-          <div class="alert alert-danger" role="alert">
-            Are your sure to delete this user?
-          </div>
-          <form:form
-            action="/admin/user/delete"
-            method="post"
-            modelAttribute="currentUser"
-          >
-            <div class="mb-3" style="display: none">
-              <label for="exampleInputEmail1" class="form-label">Id:</label>
-              <form:input
-                type="text"
-                class="form-control"
-                id="exampleInputEmail1"
-                path="id"
-              />
+        <div class="container mt-5">
+          <div class="row">
+            <div class="col-12 mx-auto">
+              <div class="d-flex justify-content-between">
+                <h3>User detail with id = ${id}</h3>
+              </div>
+              <hr />
+              <div class="card" style="width: 60%">
+                <div class="card-header">User information</div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">ID: 1</li>
+                  <li class="list-group-item">Email: ${user.id}</li>
+                  <li class="list-group-item">FullName: ${user.fullName}</li>
+                  <li class="list-group-item">Address: ${user.address}</li>
+                </ul>
+              </div>
+              <a href="/admin/user" class="btn btn-success mt-3">Back</a>
             </div>
-            <button type="submit" class="btn btn-danger">Confirm</button>
-          </form:form>
+          </div>
         </div>
         <jsp:include page="../layout/footer.jsp" />
       </div>

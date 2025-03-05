@@ -1,4 +1,4 @@
-package vn.hoidanit.laptopshop.controller;
+package vn.hoidanit.laptopshop.controller.admin;
 
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
-public class ProductController {
+public class OrderController {
 
-    @GetMapping("/admin/product")
+    @GetMapping("/admin/order")
     public String getDashboard() {
-        return "admin/product/show";
+        return "admin/order/show";
     }
 }
