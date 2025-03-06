@@ -19,14 +19,14 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <script>
-        $(document).ready(() => {
-            const avatarFile = $("#avatarFile");
-            avatarFile.change(function (e) {
-                const imgURL = URL.createObjectURL(e.target.files[0]);
-                $("#avatarPreview").attr("src", imgURL);
-                $("#avatarPreview").css({ "display": "block" });
-            });
+      $(document).ready(() => {
+        const avatarFile = $("#avatarFile");
+        avatarFile.change(function (e) {
+          const imgURL = URL.createObjectURL(e.target.files[0]);
+          $("#avatarPreview").attr("src", imgURL);
+          $("#avatarPreview").css({ display: "block" });
         });
+      });
     </script>
 
     <script
@@ -60,6 +60,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
                 method="post"
                 action="/admin/user/create"
                 modelAttribute="newUser"
+                enctype="multipart/form-data"
               >
                 <div class="row">
                   <div class="mb-3 col">
@@ -126,22 +127,32 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
                 <div class="row">
                   <div class="col">
                     <label class="form-label">Role:</label>
-                    <select
+                    <form:select
                       class="form-select mb-3"
                       aria-label="Default select example"
+                      path="role.name"
                     >
-                      <option selected value="ADMIN">ADMIN</option>
-                      <option value="USER">USER</option>
-                    </select>
+                      <form:option value="ADMIN">ADMIN</form:option>
+                      <form:option value="USER">USER</form:option>
+                    </form:select>
                   </div>
                   <div class="col">
                     <label for="avatarFile" class="form-label">Avatar:</label>
-                    <input class="form-control" type="file" id="avatarFile" accept=".png, .jpg,.jpeg">
+                    <input
+                      class="form-control"
+                      type="file"
+                      id="avatarFile"
+                      accept=".png, .jpg,.jpeg"
+                      name="hoidanitFile"
+                    />
                   </div>
-                  
                 </div>
                 <div class="col-12 mb-3">
-                  <img style="max-height: 250px;display: none;" alt="avatar preview" id="avatarPreview" />
+                  <img
+                    style="max-height: 250px; display: none"
+                    alt="avatar preview"
+                    id="avatarPreview"
+                  />
                 </div>
                 <div class="col-12 mb-5">
                   <button type="submit" class="btn btn-primary">Create</button>
