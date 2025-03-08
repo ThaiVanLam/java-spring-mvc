@@ -66,7 +66,7 @@ public class UserController {
         return "admin/user/detail";
     }
 
-    @RequestMapping("admin/user/update/{id}")
+    @GetMapping("admin/user/update/{id}")
     public String getUpdateUserPage(Model model, @PathVariable long id) {
         User currentUser = this.userService.getUserById(id);
         model.addAttribute("newUser", currentUser);
@@ -74,12 +74,16 @@ public class UserController {
     }
 
     @PostMapping("admin/user/update")
-    public String postUpdateUser(Model model, @ModelAttribute("newUser") User hoidanit) {
+    public String postUpdateUser(Model model, @ModelAttribute("newUser") User hoidanit,
+            @RequestParam("hoidanitFile") MultipartFile file) {
+        String avatar = this.uploadService.handleSaveUploadFile(file, "avatar");
         User currentUser = this.userService.getUserById(hoidanit.getId());
         if (currentUser != null) {
             currentUser.setAddress(hoidanit.getAddress());
             currentUser.setFullName(hoidanit.getFullName());
             currentUser.setPhone(hoidanit.getPhone());
+            currentUser.setRole(this.userService.getRoleByName(hoidanit.getRole().getName()));
+            currentUser.setAvatar(avatar);
             this.userService.handleSaveUser(currentUser);
         }
         return "redirect:/admin/user";
