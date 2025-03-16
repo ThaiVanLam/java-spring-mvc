@@ -2,6 +2,7 @@ package vn.hoidanit.laptopshop.controller.admin;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.repository.UserRepository;
 import vn.hoidanit.laptopshop.service.UserService;
@@ -25,5 +26,11 @@ public class ProductController {
     @GetMapping("/admin/product")
     public String getDashboard() {
         return "admin/product/show";
+    }
+
+    @GetMapping("/admin/product/create")
+    public String getAddProduct(Model model) {
+        model.addAttribute("product", new Product());
+        return "admin/product/create";
     }
 }

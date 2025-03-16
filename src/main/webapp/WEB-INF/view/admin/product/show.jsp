@@ -33,7 +33,24 @@ uri="http://java.sun.com/jsp/jstl/core"%>
               </li>
               <li class="breadcrumb-item active">Products</li>
             </ol>
-            <div>table product</div>
+            <div class="d-flex justify-content-between">
+              <h3>Table products</h3>
+              <a href="/admin/product/create" class="btn btn-primary"
+                >Create a product</a
+              >
+            </div>
+            <hr />
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Factory</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+            </table>
           </div>
         </main>
         <jsp:include page="../layout/footer.jsp" />
