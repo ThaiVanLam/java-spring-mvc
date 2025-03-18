@@ -64,26 +64,31 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
               >
                 <div class="row">
                   <div class="mb-3 col">
-                    <label for="exampleInputEmail1" class="form-label"
-                      >Email:</label
-                    >
+                    <c:set var="errorEmail">
+                      <form:errors path="email" cssClass="invalid-feedback" />
+                    </c:set>
+                    <label class="form-label">Email:</label>
                     <form:input
                       type="email"
-                      class="form-control"
-                      id="exampleInputEmail1"
+                      class="form-control ${not empty errorEmail ? 'is-invalid' : ''}"
                       path="email"
                     />
+                    ${errorEmail}
                   </div>
                   <div class="mb-3 col">
-                    <label for="exampleInputPassword1" class="form-label"
-                      >Password:</label
-                    >
+                    <c:set var="errorPassword">
+                      <form:errors
+                        path="password"
+                        cssClass="invalid-feedback"
+                      />
+                    </c:set>
+                    <label class="form-label">Password:</label>
                     <form:input
                       type="password"
-                      class="form-control"
-                      id="exampleInputPassword1"
+                      class="form-control ${not empty errorPassword ? 'is-invalid' : ''}"
                       path="password"
                     />
+                    ${errorPassword}
                   </div>
                 </div>
 
@@ -101,15 +106,19 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
                   </div>
 
                   <div class="mb-3 col">
-                    <label for="exampleInputEmail1" class="form-label"
-                      >Full Name:</label
-                    >
+                    <c:set var="errorFullName">
+                      <form:errors
+                        path="fullName"
+                        cssClass="invalid-feedback"
+                      />
+                    </c:set>
+                    <label class="form-label">Full Name:</label>
                     <form:input
                       type="text"
-                      class="form-control"
-                      id="exampleInputEmail1"
+                      class="form-control ${not empty errorFullName ? 'is-invalid' : ''}"
                       path="fullName"
                     />
+                    ${errorFullName}
                   </div>
                 </div>
 
