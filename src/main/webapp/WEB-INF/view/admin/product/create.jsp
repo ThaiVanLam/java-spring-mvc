@@ -48,7 +48,10 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
           <h2>Products</h2>
           <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-            <li class="breadcrumb-item active">Product</li>
+            <li class="breadcrumb-item active">
+              <a href="/admin/product">Product</a>
+            </li>
+            <li class="breadcrumb-item active">Create</li>
           </ol>
         </div>
         <div class="mt-5">
@@ -58,53 +61,82 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
               <hr />
               <form:form
                 method="post"
-                modelAttribute="product"
+                modelAttribute="newProduct"
                 enctype="multipart/form-data"
               >
                 <div class="row">
                   <div class="mb-3 col">
+                    <c:set var="errorName">
+                      <form:errors path="name" cssClass="invalid-feedback" />
+                    </c:set>
                     <label class="form-label">Name:</label>
                     <form:input
                       type="text"
-                      class="form-control"
-                      id="exampleInputEmail1"
+                      class="form-control ${not empty errorName ? 'is-invalid' : ''}"
                       path="name"
                     />
+                    ${errorName}
                   </div>
                   <div class="mb-3 col">
+                    <c:set var="errorPrice">
+                      <form:errors path="price" cssClass="invalid-feedback" />
+                    </c:set>
                     <label class="form-label">Price:</label>
                     <form:input
                       type="number"
-                      class="form-control"
+                      class="form-control ${not empty errorPrice ? 'is-invalid' : ''}"
                       path="price"
+                      step="0.1"
                     />
+                    ${errorPrice}
                   </div>
                 </div>
                 <div class="form-group mb-3">
+                  <c:set var="errorDetailDesc">
+                    <form:errors
+                      path="detailDesc"
+                      cssClass="invalid-feedback"
+                    />
+                  </c:set>
                   <label>Detail description:</label>
                   <form:textarea
-                    class="form-control"
+                    class="form-control ${not empty errorDetailDesc ? 'is-invalid' : ''}"
                     rows="3"
                     path="detailDesc"
                   ></form:textarea>
+                  ${errorDetailDesc}
                 </div>
 
                 <div class="row mb-3">
                   <div class="col">
+                    <c:set var="errorShortDesc">
+                      <form:errors
+                        path="shortDesc"
+                        cssClass="invalid-feedback"
+                      />
+                    </c:set>
                     <label>Short description:</label>
                     <form:input
                       type="text"
-                      class="form-control"
+                      class="form-control ${not empty errorShortDesc ? 'is-invalid' : ''}"
                       path="shortDesc"
                     />
+                    ${errorShortDesc}
                   </div>
                   <div class="col">
+                    <c:set var="errorQuantity">
+                      <form:errors
+                        path="quantity"
+                        cssClass="invalid-feedback"
+                      />
+                    </c:set>
                     <label>Quantity:</label>
                     <form:input
                       type="number"
-                      class="form-control"
+                      class="form-control ${not empty errorQuantity ? 'is-invalid' : ''}"
                       path="quantity"
                     />
+                    ${errorQuantity}
                   </div>
                 </div>
                 <div class="mb-3 row">

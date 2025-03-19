@@ -50,6 +50,21 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
+              <tbody>
+                <c:forEach var="product" items="${products}">
+                  <tr>
+                    <td>${product.id}</th>
+                    <td>${product.name}</td>
+                    <td>${product.price}</td>
+                    <td>${product.factory}</td>
+                    <td>
+                      <a href="#" class="btn btn-success">View</a>
+                      <a href="#" class="btn btn-warning">Update</a>
+                      <a href="#" class="btn btn-danger">Delete</a>
+                    </td>
+                  </tr>
+                </c:forEach>
+              </tbody>
             </table>
           </div>
         </main>
