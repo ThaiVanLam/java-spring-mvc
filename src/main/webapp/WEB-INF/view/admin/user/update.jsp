@@ -59,13 +59,8 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
                 enctype="multipart/form-data"
               >
                 <div class="mb-3" style="display: none">
-                  <label for="exampleInputEmail1" class="form-label">Id:</label>
-                  <form:input
-                    type="text"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    path="id"
-                  />
+                  <label class="form-label">Id:</label>
+                  <form:input type="text" class="form-control" path="id" />
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label"

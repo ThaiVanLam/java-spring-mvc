@@ -51,19 +51,24 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
             <li class="breadcrumb-item active">
               <a href="/admin/product">Product</a>
             </li>
-            <li class="breadcrumb-item active">Create</li>
+            <li class="breadcrumb-item active">Update</li>
           </ol>
         </div>
         <div class="mt-5">
           <div class="row">
             <div class="col-md-6 col-12 mx-auto">
-              <h3>Create a product</h3>
+              <h3>Update a product</h3>
               <hr />
               <form:form
                 method="post"
                 modelAttribute="newProduct"
+                action="/admin/product/update"
                 enctype="multipart/form-data"
               >
+                <div class="mb-3" style="display: none">
+                  <label class="form-label">Id:</label>
+                  <form:input type="text" class="form-control" path="id" />
+                </div>
                 <div class="row">
                   <div class="mb-3 col">
                     <c:set var="errorName">
@@ -180,14 +185,15 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
                 </div>
                 <div class="col-12 mb-3">
                   <img
-                    style="max-height: 250px; display: none"
+                    src="${imagePath}"
+                    style="max-height: 250px; display: block"
                     alt="avatar preview"
                     id="avatarPreview"
                   />
                 </div>
 
                 <div class="col-12 mb-5">
-                  <button type="submit" class="btn btn-primary">Create</button>
+                  <button type="submit" class="btn btn-warning">Update</button>
                 </div>
               </form:form>
             </div>

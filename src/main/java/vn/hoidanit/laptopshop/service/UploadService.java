@@ -46,4 +46,8 @@ public class UploadService {
         }
         return finalName;
     }
+
+    public String getRootPath() {
+        return this.servletContext.getRealPath("/resources/images");
+    }
 }

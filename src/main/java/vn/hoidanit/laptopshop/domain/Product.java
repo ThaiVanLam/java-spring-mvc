@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 @Entity
@@ -23,6 +24,7 @@ public class Product {
     @NotEmpty(message = "Tên sản phẩm không được để trống")
     private String name;
     @Positive(message = "Giá sản phẩm phải lớn hơn 0")
+    @NotNull(message = "Giá sản phẩm không được để trống")
     private double price;
     private String image;
     @NotEmpty(message = "detailDesc không được để trống")
