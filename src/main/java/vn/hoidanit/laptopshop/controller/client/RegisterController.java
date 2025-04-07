@@ -40,10 +40,8 @@ public class RegisterController {
     public String handleRegister(@ModelAttribute("registerUser") @Valid RegisterDTO registerUser,
             BindingResult bindingResult,
             Model model) {
-
-        List<FieldError> errors = bindingResult.getFieldErrors();
-        for (FieldError error : errors) {
-            System.out.println(">>>>" + error.getField() + " - " + error.getDefaultMessage());
+        if (bindingResult.hasErrors()) {
+            return "/client/auth/register";
         }
 
         // hứng User từ dto từ userservice

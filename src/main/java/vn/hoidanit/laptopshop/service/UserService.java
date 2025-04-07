@@ -58,4 +58,8 @@ public class UserService {
         user.setFullName(registerDTO.getFirstName() + " " + registerDTO.getLastName());
         return user;
     }
+
+    public boolean checkEmailExists(String email) {
+        return this.userRepository.existsByEmail(email);
+    }
 }
