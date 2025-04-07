@@ -1,3 +1,6 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%> <%@ taglib prefix="c"
+uri="http://java.sun.com/jsp/jstl/core"%> <%@taglib
+uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,7 +31,7 @@
                     <h3 class="text-center font-weight-light my-4">Login</h3>
                   </div>
                   <div class="card-body">
-                    <form>
+                    <form:form>
                       <div class="form-floating mb-3">
                         <input
                           class="form-control"
@@ -54,7 +57,7 @@
                           </button>
                         </div>
                       </div>
-                    </form>
+                    </form:form>
                   </div>
                   <div class="card-footer text-center py-3">
                     <div class="small">
