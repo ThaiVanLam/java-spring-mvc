@@ -30,7 +30,7 @@ public class User {
     private String email;
     @NotNull
     @Size(min = 2, message = "Password phải có ít nhất 2 ký tự")
-    @StrongPassword(message = "Password phải có 8 ký tự")
+    // @StrongPassword(message = "Password phải có 8 ký tự")
     private String password;
     @NotNull
     @Size(min = 3, message = "Full name phải có ít nhất 3 ký tự")
