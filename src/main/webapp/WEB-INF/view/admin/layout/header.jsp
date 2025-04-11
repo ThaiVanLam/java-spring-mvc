@@ -16,7 +16,9 @@ uri="http://java.sun.com/jsp/jstl/core"%>
   <form
     class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"
   >
-    <span style="color: white">Welcome, Hỏi Dân IT</span>
+    <span style="color: white"
+      ><c:out value="${pageContext.request.userPrincipal.name}"
+    /></span>
     <!-- <div class="input-group">
             <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
                 aria-describedby="btnNavbarSearch" />
@@ -45,7 +47,16 @@ uri="http://java.sun.com/jsp/jstl/core"%>
         <li>
           <hr class="dropdown-divider" />
         </li>
-        <li><a class="dropdown-item" href="#!">Logout</a></li>
+        <li>
+          <form action="/logout" method="post">
+            <input
+              type="hidden"
+              name="${_csrf.parameterName}"
+              value="${_csrf.token}"
+            />
+            <button class="dropdown-item" type="submit">Logout</button>
+          </form>
+        </li>
       </ul>
     </li>
   </ul>

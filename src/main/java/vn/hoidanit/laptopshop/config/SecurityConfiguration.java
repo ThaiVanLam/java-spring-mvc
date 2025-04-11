@@ -58,8 +58,8 @@ public class SecurityConfiguration {
                                 DispatcherType.INCLUDE)
                         .permitAll()
 
-                        .requestMatchers("/", "/login", "/client/**", "/css/**", "/js/**", "/images/**", "/product/**",
-                                "/test/**")
+                        .requestMatchers("/", "/login", "/client/**", "/css/**", "/js/**", "/images/**",
+                                "/product/**")
                         .permitAll()
 
                         .requestMatchers("/admin/**").hasRole("ADMIN")
@@ -70,7 +70,10 @@ public class SecurityConfiguration {
                         .loginPage("/login")
                         .failureUrl("/login?error")
                         .successHandler(myAuthenticationSuccessHandler())
-                        .permitAll());
+                        .permitAll())
+
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                        .accessDeniedPage("/access-denied"));
 
         return http.build();
     }

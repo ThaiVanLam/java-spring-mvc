@@ -26,4 +26,9 @@ public class HomePageController {
         return "client/homepage/show";
     }
 
+    @GetMapping("/access-denied")
+    public String getDeniedPage() {
+        return "client/auth/denied";
+    }
+
 }

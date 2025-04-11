@@ -509,4 +509,7 @@
     line-height: 35px;
 }
 
+.color-red {
+    color: var(--bs-danger);
+}
 /*** Footer End ***/
