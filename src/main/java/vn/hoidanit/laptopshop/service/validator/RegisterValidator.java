@@ -1,6 +1,5 @@
 package vn.hoidanit.laptopshop.service.validator;
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.stereotype.Service;
 
 import jakarta.validation.ConstraintValidator;

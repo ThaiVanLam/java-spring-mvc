@@ -1,11 +1,5 @@
 package vn.hoidanit.laptopshop.controller.admin;
 
-import jakarta.validation.Valid;
-import vn.hoidanit.laptopshop.domain.Product;
-import vn.hoidanit.laptopshop.service.ProductService;
-import vn.hoidanit.laptopshop.service.UploadService;
-
-import java.io.File;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -18,7 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.RequestBody;
+
+import jakarta.validation.Valid;
+import vn.hoidanit.laptopshop.domain.Product;
+import vn.hoidanit.laptopshop.service.ProductService;
+import vn.hoidanit.laptopshop.service.UploadService;
 
 @Controller
 public class ProductController {
@@ -69,7 +67,7 @@ public class ProductController {
     public String getProductDetail(Model model, @PathVariable long id) {
         System.out.println("check path id = " + id);
         model.addAttribute("id", id);
-        Product product = this.productService.getProductById(id);
+        Product product = this.productService.getProductById(id).get();
         model.addAttribute("product", product);
         // get name of image file from database
         String image = product.getImage();
@@ -80,7 +78,7 @@ public class ProductController {
 
     @GetMapping("/admin/product/update/{id}")
     public String getUpdateProduct(Model model, @PathVariable long id) {
-        Product currentProduct = this.productService.getProductById(id);
+        Product currentProduct = this.productService.getProductById(id).get();
         String image = currentProduct.getImage();
         String imagePath = "/images/product/" + image;
         model.addAttribute("newProduct", currentProduct);
@@ -101,7 +99,7 @@ public class ProductController {
             return "admin/product/update";
         }
         //
-        Product currentProduct = this.productService.getProductById(product.getId());
+        Product currentProduct = this.productService.getProductById(product.getId()).get();
         if (currentProduct != null) {
             if (!file.isEmpty()) {
 
@@ -125,12 +123,12 @@ public class ProductController {
         Product product = new Product();
         product.setId(id);
         model.addAttribute("currentProduct", product);
-        return "/admin/product/delete";
+        return "admin/product/delete";
     }
 
     @PostMapping("/admin/product/delete")
     public String postDeleteProduct(Model model, @ModelAttribute("currentProduct") Product product) {
-        Product currentProduct = this.productService.getProductById(product.getId());
+        Product currentProduct = this.productService.getProductById(product.getId()).get();
         if (currentProduct != null) {
             this.productService.handleDeleteProduct(currentProduct.getId());
         }
