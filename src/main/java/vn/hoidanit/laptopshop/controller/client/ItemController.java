@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import vn.hoidanit.laptopshop.domain.Cart;
 import vn.hoidanit.laptopshop.domain.CartDetail;
 import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.service.ProductService;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class ItemController {
@@ -52,6 +54,27 @@ public class ItemController {
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("cartDetails", cartDetails);
         return "client/cart/show";
+    }
+
+    @PostMapping("/delete-cart-product/{id}")
+    public String postDeleteCartProduct(@PathVariable long id, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        // find cart detail by id
+        CartDetail cartDetail = productService.getCartDetailById(id);
+        // get cart by cart detail
+        Cart cart = cartDetail.getCart();
+        // delete cart detail by id
+        this.productService.deleteCartDetailById(id);
+        // update cart
+        if (cart.getSum() == 1) {
+            this.productService.deleteCartById(cart.getId());
+            // set session sum of cart to 0
+            session.setAttribute("sum", 0);
+        } else {
+            session.setAttribute("sum", cart.getSum() - 1);
+            this.productService.updateCart(cart);
+        }
+        return "redirect:/cart";
     }
 
 }

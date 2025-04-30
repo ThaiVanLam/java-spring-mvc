@@ -103,4 +103,21 @@ public class ProductService {
         return cartDetails;
     }
 
+    public CartDetail getCartDetailById(long id) {
+        return this.cartDetailRepository.findById(id).orElse(null);
+    }
+
+    public void deleteCartDetailById(long id) {
+        this.cartDetailRepository.deleteById(id);
+    }
+
+    public void deleteCartById(long id) {
+        this.cartRepository.deleteById(id);
+    }
+
+    public void updateCart(Cart cart) {
+        cart.setSum(cart.getSum() - 1);
+        this.cartRepository.save(cart);
+    }
+
 }
