@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%> <%@ taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core"%>
+uri="http://java.sun.com/jsp/jstl/core"%><%@ taglib prefix="fmt"
+uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -53,14 +54,32 @@ uri="http://java.sun.com/jsp/jstl/core"%>
               <tbody>
                 <c:forEach var="product" items="${products}">
                   <tr>
-                    <td>${product.id}</th>
+                    <th>${product.id}</th>
                     <td>${product.name}</td>
-                    <td>${product.price}</td>
+                    <td>
+                      <fmt:formatNumber
+                        value="${product.price}"
+                        type="number"
+                      />
+                      đ
+                    </td>
                     <td>${product.factory}</td>
                     <td>
-                      <a href="/admin/product/${product.id}" class="btn btn-success">View</a>
-                      <a href="/admin/product/update/${product.id}" class="btn btn-warning">Update</a>
-                      <a href="/admin/product/delete/${product.id}" class="btn btn-danger">Delete</a>
+                      <a
+                        href="/admin/product/${product.id}"
+                        class="btn btn-success"
+                        >View</a
+                      >
+                      <a
+                        href="/admin/product/update/${product.id}"
+                        class="btn btn-warning"
+                        >Update</a
+                      >
+                      <a
+                        href="/admin/product/delete/${product.id}"
+                        class="btn btn-danger"
+                        >Delete</a
+                      >
                     </td>
                   </tr>
                 </c:forEach>

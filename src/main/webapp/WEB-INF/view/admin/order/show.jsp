@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%> <%@ taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core"%>
+uri="http://java.sun.com/jsp/jstl/core"%><%@ taglib prefix="fmt"
+uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -33,7 +34,50 @@ uri="http://java.sun.com/jsp/jstl/core"%>
               </li>
               <li class="breadcrumb-item active">Orders</li>
             </ol>
-            <div>table order</div>
+            <div><h3>Table Orders</h3></div>
+            <hr />
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Total Price</th>
+                  <th scope="col">User</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <c:forEach var="order" items="${orders}">
+                  <tr>
+                    <th>${order.id}</th>
+                    <td>
+                      <fmt:formatNumber
+                        value="${order.totalPrice}"
+                        type="number"
+                      />
+                      đ
+                    </td>
+                    <td>${order.user.fullName}</td>
+                    <td>${order.status}</td>
+                    <td>
+                      <a href="/admin/order/${order.id}" class="btn btn-success"
+                        >View</a
+                      >
+                      <a
+                        href="/admin/order/update/${order.id}"
+                        class="btn btn-warning"
+                        >Update</a
+                      >
+                      <a
+                        href="/admin/order/delete/${order.id}"
+                        class="btn btn-danger"
+                        >Delete</a
+                      >
+                    </td>
+                  </tr>
+                </c:forEach>
+              </tbody>
+            </table>
           </div>
         </main>
         <jsp:include page="../layout/footer.jsp" />
