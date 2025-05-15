@@ -14,8 +14,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import vn.hoidanit.laptopshop.domain.Cart;
 import vn.hoidanit.laptopshop.domain.CartDetail;
+import vn.hoidanit.laptopshop.domain.Order;
 import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.domain.User;
+import vn.hoidanit.laptopshop.service.OrderService;
 import vn.hoidanit.laptopshop.service.ProductService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,8 +26,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ItemController {
 
     private final ProductService productService;
+    private final OrderService orderService;
 
-    public ItemController(ProductService productService) {
+    public ItemController(ProductService productService, OrderService orderService) {
+        this.orderService = orderService;
         this.productService = productService;
     }
 
@@ -33,8 +37,19 @@ public class ItemController {
     public String getProductDetail(Model model, @PathVariable long id) {
         Product pr = productService.getProductById(id).get();
         model.addAttribute("product", pr);
-        model.addAttribute("id", id);
         return "client/product/detail";
+    }
+
+    @PostMapping("/product/{id}")
+    public String postProductDetail(@PathVariable long id, @RequestParam("quantity") long quantity,
+            HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        long productId = id;
+        String email = (String) session.getAttribute("email");
+        // cập nhật lại cart
+        // todo: tạo hàm mới trong productService để cập nhật lại cart khi có quantity
+        this.productService.handleAddProductToCartFromProductDetailPage(email, productId, quantity, session);
+        return "redirect:/product/{id}";
     }
 
     @PostMapping("/add-product-to-cart/{id}")

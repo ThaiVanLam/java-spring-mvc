@@ -105,6 +105,56 @@ public class ProductService {
 
     }
 
+    public void handleAddProductToCartFromProductDetailPage(String email, long productId, long quantity,
+            HttpSession session) {
+        User user = userService.getUserByEmail(email);
+        if (user != null) {
+            // check user đã có cart hay chưa, nếu chưa tạo mới
+            Cart cart = this.cartRepository.findByUser(user);
+            if (cart == null) {
+                Cart otherCart = new Cart();
+                otherCart.setUser(user);
+                otherCart.setSum(0);
+
+                cart = this.cartRepository.save(otherCart);
+            }
+
+            // save cart_detail
+            // tìm product theo id
+            Optional<Product> product = this.productRepository.findById(productId);
+            if (product.isPresent()) {
+                // lấy ra product
+                Product realProduct = product.get();
+
+                // kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+                CartDetail oldDetail = this.cartDetailRepository.findByCartAndProduct(cart, realProduct);
+                if (oldDetail == null) {
+
+                    // tạo cart_detail
+                    CartDetail cartDetail = new CartDetail();
+                    cartDetail.setCart(cart);
+                    cartDetail.setProduct(realProduct);
+                    // thiết lập quantity truyền từ tham số
+                    cartDetail.setQuantity(quantity);
+                    cartDetail.setPrice(realProduct.getPrice());
+                    this.cartDetailRepository.save(cartDetail);
+
+                    // update sum
+                    int s = cart.getSum() + 1;
+                    cart.setSum(s);
+                    this.cartRepository.save(cart);
+                    session.setAttribute("sum", s);
+                } else {
+                    // nếu đã có thì tăng số lượng lên 1
+                    oldDetail.setQuantity(oldDetail.getQuantity() + quantity);
+                    this.cartDetailRepository.save(oldDetail);
+
+                }
+            }
+
+        }
+    }
+
     public List<CartDetail> getAllProductsInCart(long id) {
         User user = userService.getUserById(id);
         Cart cart = this.cartRepository.findByUser(user);
@@ -189,5 +239,9 @@ public class ProductService {
             }
         }
 
+    }
+
+    public CartDetail getCartDetailByProduct(Product product) {
+        return this.cartDetailRepository.findByProduct(product);
     }
 }

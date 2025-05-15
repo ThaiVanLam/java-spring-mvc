@@ -27,7 +27,7 @@ public class RegisterController {
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
         model.addAttribute("registerUser", new RegisterDTO());
-        return "/client/auth/register";
+        return "client/auth/register";
     }
 
     @PostMapping("/register")
@@ -35,7 +35,7 @@ public class RegisterController {
             BindingResult bindingResult,
             Model model) {
         if (bindingResult.hasErrors()) {
-            return "/client/auth/register";
+            return "client/auth/register";
         }
 
         // hứng User từ dto từ userservice
