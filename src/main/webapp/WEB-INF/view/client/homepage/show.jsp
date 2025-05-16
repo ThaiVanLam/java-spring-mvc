@@ -67,8 +67,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
                 <li class="nav-item">
                   <a
                     class="d-flex m-2 py-2 bg-light rounded-pill active"
-                    data-bs-toggle="pill"
-                    href="#tab-1"
+                    href="/products"
                   >
                     <span class="text-dark" style="width: 130px"
                       >All Products</span
