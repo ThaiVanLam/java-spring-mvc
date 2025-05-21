@@ -16,7 +16,7 @@ public class TestApi {
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         String responseBody = response.getBody();
         System.out.println("Response Body: " + responseBody);
-        return "";
+        return "show";
     }
 
 }

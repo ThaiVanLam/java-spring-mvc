@@ -49,9 +49,20 @@ public class ProductService {
         return this.productRepository.findAll(page);
     }
 
-    public Page<Product> getAllProductsWithSpec(Pageable page, String name) {
-        return this.productRepository.findAll(ProductSpecs.nameLike(name), page);
+    public Page<Product> getAllProductsWithSpec(Pageable page, String name, double minPrice, double maxPrice,
+            List<String> factoryList, List<String> price, List<String> target) {
+        return this.productRepository.findAll(
+                ProductSpecs.nameLike(name).and(ProductSpecs.minPrice(minPrice))
+                        .and(ProductSpecs.maxPrice(maxPrice)).and(ProductSpecs.factoryIn(factoryList))
+                        .and(ProductSpecs.priceBetween(price)).and(ProductSpecs.targetIn(target)),
+                page);
     }
+
+    // public Page<Product> getAllProductsWithSpecFactory(Pageable page, String
+    // factory) {
+    // return this.productRepository.findAll(ProductSpecs.factoryLike(factory),
+    // page);
+    // }
 
     public void handleSaveProduct(Product product) {
         this.productRepository.save(product);
