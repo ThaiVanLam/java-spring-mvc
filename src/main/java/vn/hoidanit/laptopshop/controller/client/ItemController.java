@@ -158,7 +158,8 @@ public class ItemController {
     @GetMapping("/products")
     public String getProductPage(Model model, ProductCriteriaDTO productCriteriaDTO) {
         int page = 1;
-        if (pageOptional.isPresent()) {
+        Optional<String> pageOptional = productCriteriaDTO.getPage();
+        if (pageOptional != null && pageOptional.isPresent()) {
             try {
                 page = Integer.parseInt(pageOptional.get());
             } catch (Exception e) {
@@ -167,16 +168,22 @@ public class ItemController {
 
         Pageable pageable = PageRequest.of(page - 1, 60);
 
-        String name = nameOptional.isPresent() ? nameOptional.get() : "";
-        double minPrice = minPriceOptional.isPresent() ? Double.parseDouble(minPriceOptional.get()) : 0.0;
-        double maxPrice = maxPriceOptional.isPresent() ? Double.parseDouble(maxPriceOptional.get()) : Double.MAX_VALUE;
-        List<String> factoryList = factoryListOptional.isPresent() ? factoryListOptional.get() : null;
-        List<String> price = priceOptional.isPresent() ? priceOptional.get() : null;
-        List<String> target = targetOptional.isPresent() ? targetOptional.get() : null;
-        // nếu không có filter nào thì trả về tất cả sản phẩm
+        // String name = nameOptional.isPresent() ? nameOptional.get() : "";
+        // double minPrice = minPriceOptional.isPresent() ?
+        // Double.parseDouble(minPriceOptional.get()) : 0.0;
+        // double maxPrice = maxPriceOptional.isPresent() ?
+        // Double.parseDouble(maxPriceOptional.get()) : Double.MAX_VALUE;
+        // List<String> factoryList = factoryListOptional.isPresent() ?
+        // factoryListOptional.get() : null;
+        // List<String> price = priceOptional.isPresent() ? priceOptional.get() : null;
+        // List<String> target = targetOptional.isPresent() ? targetOptional.get() :
+        // null;
+        // // nếu không có filter nào thì trả về tất cả sản phẩm
 
-        Page<Product> products = this.productService.getAllProductsWithSpec(pageable, name, minPrice, maxPrice,
-                factoryList, price, target);
+        // Page<Product> products = this.productService.getAllProductsWithSpec(pageable,
+        // name, minPrice, maxPrice,
+        // factoryList, price, target);
+        Page<Product> products = this.productService.getAllProductsWithSpec(pageable, productCriteriaDTO);
         List<Product> listProducts = products.getContent();
         model.addAttribute("products", listProducts);
 

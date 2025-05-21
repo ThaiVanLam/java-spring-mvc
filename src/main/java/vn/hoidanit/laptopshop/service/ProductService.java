@@ -17,6 +17,7 @@ import vn.hoidanit.laptopshop.domain.OrderDetail;
 import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.domain.Product_;
 import vn.hoidanit.laptopshop.domain.User;
+import vn.hoidanit.laptopshop.domain.dto.ProductCriteriaDTO;
 import vn.hoidanit.laptopshop.repository.CartDetailRepository;
 import vn.hoidanit.laptopshop.repository.CartRepository;
 import vn.hoidanit.laptopshop.repository.OrderDetailRepository;
@@ -56,6 +57,31 @@ public class ProductService {
                         .and(ProductSpecs.maxPrice(maxPrice)).and(ProductSpecs.factoryIn(factoryList))
                         .and(ProductSpecs.priceBetween(price)).and(ProductSpecs.targetIn(target)),
                 page);
+    }
+
+    public Page<Product> getAllProductsWithSpec(Pageable page, ProductCriteriaDTO productCriteriaDTO) {
+        Specification<Product> combinedSpec = Specification.where(null);
+
+        if (productCriteriaDTO.getTarget() == null && productCriteriaDTO.getFactory() == null
+                && productCriteriaDTO.getPrice() == null) {
+            // Nếu không có bất kỳ tiêu chí nào thì trả về tất cả sản phẩm
+            return this.productRepository.findAll(page);
+        }
+
+        if (productCriteriaDTO.getFactory() != null && productCriteriaDTO.getFactory().isPresent()) {
+            Specification<Product> factorySpec = ProductSpecs.factoryIn(productCriteriaDTO.getFactory().get());
+            combinedSpec = combinedSpec.and(factorySpec);
+        }
+        if (productCriteriaDTO.getPrice() != null && productCriteriaDTO.getPrice().isPresent()) {
+            Specification<Product> priceSpec = ProductSpecs.priceBetween(productCriteriaDTO.getPrice().get());
+            combinedSpec = combinedSpec.and(priceSpec);
+        }
+        if (productCriteriaDTO.getTarget() != null && productCriteriaDTO.getTarget().isPresent()) {
+            Specification<Product> targetSpec = ProductSpecs.targetIn(productCriteriaDTO.getTarget().get());
+            combinedSpec = combinedSpec.and(targetSpec);
+        }
+
+        return this.productRepository.findAll(combinedSpec, page);
     }
 
     // public Page<Product> getAllProductsWithSpecFactory(Pageable page, String

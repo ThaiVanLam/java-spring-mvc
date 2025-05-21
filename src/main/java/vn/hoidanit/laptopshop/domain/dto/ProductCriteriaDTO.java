@@ -10,7 +10,7 @@ public class ProductCriteriaDTO {
     private Optional<String> name;
     private Optional<String> minPrice;
     private Optional<String> maxPrice;
-    private Optional<List<String>> factoryList;
+    private Optional<List<String>> factory;
     private Optional<List<String>> price;
     private Optional<List<String>> target;
     private Optional<String> sort;
@@ -47,12 +47,12 @@ public class ProductCriteriaDTO {
         this.maxPrice = maxPrice;
     }
 
-    public Optional<List<String>> getFactoryList() {
-        return factoryList;
+    public Optional<List<String>> getFactory() {
+        return factory;
     }
 
-    public void setFactoryList(Optional<List<String>> factoryList) {
-        this.factoryList = factoryList;
+    public void setFactory(Optional<List<String>> factory) {
+        this.factory = factory;
     }
 
     public Optional<List<String>> getPrice() {
