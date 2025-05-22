@@ -366,12 +366,12 @@ uri="http://www.springframework.org/tags/form" %>
                     </div>
                   </div>
                 </c:forEach>
-                <c:if test="${page.totalPages > 0}">
+                <c:if test="${totalPages > 0}">
                   <div class="pagination d-flex justify-content-center mt-5">
                     <li class="page-item">
                       <a
                         class="${1 eq currentPage ? 'disabled page-link' : 'page-link'}"
-                        href="/products?page=${currentPage - 1}"
+                        href="/products?page=${currentPage - 1}${queryString}"
                         aria-label="Previous"
                       >
                         <span aria-hidden="true">&laquo;</span>
@@ -386,7 +386,7 @@ uri="http://www.springframework.org/tags/form" %>
                       <li class="page-item">
                         <a
                           class="${(loop.index + 1) eq currentPage ? 'active page-link' : 'page-link'}"
-                          href="/products?page=${loop.index + 1}"
+                          href="/products?page=${loop.index + 1}${queryString}"
                         >
                           ${loop.index + 1}
                         </a>
@@ -395,7 +395,7 @@ uri="http://www.springframework.org/tags/form" %>
                     <li class="page-item">
                       <a
                         class="${totalPages eq currentPage ? 'disabled page-link' : 'page-link'}"
-                        href="/products?page=${currentPage + 1}"
+                        href="/products?page=${currentPage + 1}${queryString}"
                         aria-label="Next"
                       >
                         <span aria-hidden="true">&raquo;</span>
