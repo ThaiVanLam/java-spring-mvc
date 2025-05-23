@@ -41,6 +41,15 @@ uri="http://www.springframework.org/tags/form" %>
 
     <!-- Template Stylesheet -->
     <link href="/client/css/style.css" rel="stylesheet" />
+
+    <meta name="_csrf" content="${_csrf.token}" />
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" content="${_csrf.headerName}" />
+
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
@@ -135,44 +144,63 @@ uri="http://www.springframework.org/tags/form" %>
                   <i class="fa fa-star"></i>
                 </div>
                 <p class="mb-4">${product.shortDesc}</p>
-                <form action="/product/${id}" method="post">
-                  <input
-                    type="hidden"
-                    name="${_csrf.parameterName}"
-                    value="${_csrf.token}"
-                  />
-                  <div class="input-group quantity mb-5" style="width: 100px">
-                    <div class="input-group-btn">
-                      <button
-                        type="button"
-                        class="btn btn-sm btn-minus rounded-circle bg-light border"
-                      >
-                        <i class="fa fa-minus"></i>
-                      </button>
-                    </div>
-                    <input
-                      type="text"
-                      name="quantity"
-                      class="form-control form-control-sm text-center border-0"
-                      value="1"
-                    />
-                    <div class="input-group-btn">
-                      <button
-                        type="button"
-                        class="btn btn-sm btn-plus rounded-circle bg-light border"
-                      >
-                        <i class="fa fa-plus"></i>
-                      </button>
-                    </div>
+                <!-- <form action="/product/${id}" method="post"> -->
+                <input
+                  type="hidden"
+                  name="${_csrf.parameterName}"
+                  value="${_csrf.token}"
+                />
+                <div class="input-group quantity mb-5" style="width: 100px">
+                  <div class="input-group-btn">
+                    <button
+                      class="btn btn-sm btn-minus rounded-circle bg-light border"
+                    >
+                      <i class="fa fa-minus"></i>
+                    </button>
                   </div>
-                  <button
-                    type="submit"
-                    class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"
-                  >
-                    <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                    cart
-                  </button>
-                </form>
+                  <input
+                    type="text"
+                    class="form-control form-control-sm text-center border-0"
+                    value="1"
+                    data-cart-detail-index="0"
+                  />
+                  <div class="input-group-btn">
+                    <button
+                      class="btn btn-sm btn-plus rounded-circle bg-light border"
+                    >
+                      <i class="fa fa-plus"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- <form action="/add-product-from-view-detail" method="post"
+                                                modelAttribute="product"> -->
+                <input
+                  type="hidden"
+                  name="${_csrf.parameterName}"
+                  value="${_csrf.token}"
+                />
+                <input
+                  class="form-control d-none"
+                  type="text"
+                  value="${product.id}"
+                  name="id"
+                />
+
+                <input
+                  class="form-control d-none"
+                  type="text"
+                  name="quantity"
+                  id="cartDetails0.quantity"
+                  value="1"
+                />
+                <button
+                  data-product-id="${product.id}"
+                  class="btnAddToCartDetail btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"
+                >
+                  <i class="fa fa-shopping-bag me-2 text-primary"></i>
+                  Add to cart
+                </button>
+                <!-- </form> -->
               </div>
               <div class="col-lg-12">
                 <nav>
@@ -307,5 +335,6 @@ uri="http://www.springframework.org/tags/form" %>
 
     <!-- Template Javascript -->
     <script src="/client/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
   </body>
 </html>

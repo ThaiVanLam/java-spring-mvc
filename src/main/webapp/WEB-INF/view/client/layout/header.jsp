@@ -55,6 +55,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
               <span
                 class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
                 style="top: -5px; left: 15px; height: 20px; min-width: 20px"
+                id="sumCart"
                 >${sessionScope.sum}</span
               >
             </a>
@@ -118,7 +119,9 @@ uri="http://java.sun.com/jsp/jstl/core"%>
             </div>
           </c:if>
           <c:if test="${empty pageContext.request.userPrincipal}">
-            <a href="/login" class="btn btn-primary rounded-pill py-2 px-4 me-3"
+            <a
+              href="/login"
+              class="a-login btn btn-primary rounded-pill py-2 px-4 me-3"
               >Đăng Nhập</a
             >
             <a
