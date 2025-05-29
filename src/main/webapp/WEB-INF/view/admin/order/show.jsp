@@ -43,6 +43,7 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
                   <th scope="col">Total Price</th>
                   <th scope="col">User</th>
                   <th scope="col">Status</th>
+                  <th>Payment</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
@@ -60,6 +61,11 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
                     <td>${order.user.fullName}</td>
                     <td>${order.status}</td>
                     <td>
+                      <div>Status: ${order.paymentStatus}</div>
+                      <div>Ref: ${order.paymentRef}</div>
+                      <div>Method: ${order.paymentMethod}</div>
+                    </td>
+                    <td>
                       <a href="/admin/order/${order.id}" class="btn btn-success"
                         >View</a
                       >
@@ -76,40 +82,50 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
                     </td>
                   </tr>
                 </c:forEach>
+
+                <c:if test="${ empty orders}">
+                  <tr>
+                    <td colspan="6" style="text-align: center">
+                      Không có order
+                    </td>
+                  </tr>
+                </c:if>
               </tbody>
             </table>
-            <nav aria-label="Page navigation example">
-              <ul class="pagination justify-content-center">
-                <li class="page-item">
-                  <a
-                    class="${1 eq currentPage?'disabled page-link':'page-link'}"
-                    href="/admin/order?page=${currentPage-1}"
-                    aria-label="Previous"
-                  >
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <c:forEach begin="0" end="${totalPages-1}" varStatus="loop">
+            <c:if test="${not empty orders}">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
                   <li class="page-item">
                     <a
-                      class="${(loop.index+1) eq currentPage?'active page-link':'page-link'}"
-                      href="/admin/order?page=${loop.index+1}"
-                      >${loop.index+1}</a
+                      class="${1 eq currentPage?'disabled page-link':'page-link'}"
+                      href="/admin/order?page=${currentPage-1}"
+                      aria-label="Previous"
                     >
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
                   </li>
-                </c:forEach>
+                  <c:forEach begin="0" end="${totalPages-1}" varStatus="loop">
+                    <li class="page-item">
+                      <a
+                        class="${(loop.index+1) eq currentPage?'active page-link':'page-link'}"
+                        href="/admin/order?page=${loop.index+1}"
+                        >${loop.index+1}</a
+                      >
+                    </li>
+                  </c:forEach>
 
-                <li class="page-item">
-                  <a
-                    class="${totalPages eq currentPage?'disabled page-link':'page-link'}"
-                    href="/admin/order?page=${currentPage+1}"
-                    aria-label="Next"
-                  >
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+                  <li class="page-item">
+                    <a
+                      class="${totalPages eq currentPage?'disabled page-link':'page-link'}"
+                      href="/admin/order?page=${currentPage+1}"
+                      aria-label="Next"
+                    >
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </c:if>
           </div>
         </main>
         <jsp:include page="../layout/footer.jsp" />

@@ -3,6 +3,7 @@ package vn.hoidanit.laptopshop.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -242,7 +243,7 @@ public class ProductService {
     }
 
     public void handlePlaceOrder(User user, HttpSession session, String receiverName,
-            String receiverAddress, String receiverPhone) {
+            String receiverAddress, String receiverPhone, String paymentMethod, String uuid) {
 
         // get cart by user
         Cart cart = this.cartRepository.findByUser(user);
@@ -257,7 +258,12 @@ public class ProductService {
                 order.setReceiverName(receiverName);
                 order.setReceiverAddress(receiverAddress);
                 order.setReceiverPhone(receiverPhone);
-                order.setStatus("PENDNING");
+                order.setStatus("PENDING");
+                // set payment method and status
+                // if paymentMethod is COD, set paymentRef to "UNKNOWN"
+                order.setPaymentMethod(paymentMethod);
+                order.setPaymentStatus("PAYMENT_UNPAID");
+                order.setPaymentRef(paymentMethod.equals("COD") ? "UNKNOWN" : uuid);
 
                 double sum = 0;
                 for (CartDetail cartDetail : cartDetails) {
@@ -289,5 +295,15 @@ public class ProductService {
 
     public CartDetail getCartDetailByProduct(Product product) {
         return this.cartDetailRepository.findByProduct(product);
+    }
+
+    public void updatePaymentStatus(String paymentRef, String paymentStatus) {
+        Optional<Order> orderOptional = this.orderRepository.findByPaymentRef(paymentRef);
+        if (orderOptional.isPresent()) {
+            // update
+            Order order = orderOptional.get();
+            order.setPaymentStatus(paymentStatus);
+            this.orderRepository.save(order);
+        }
     }
 }
